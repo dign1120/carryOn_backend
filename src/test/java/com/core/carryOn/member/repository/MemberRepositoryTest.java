@@ -1,15 +1,18 @@
 package com.core.carryOn.member.repository;
 
+import com.core.carryOn.MongoDBConfig;
 import com.core.carryOn.member.domain.Member;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.context.annotation.Import;
 
 import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataMongoTest
+@Import(MongoDBConfig.class)
 class MemberRepositoryTest {
     private final MemberRepository memberRepository;
 
@@ -19,20 +22,21 @@ class MemberRepositoryTest {
     }
 
     @Test
-    public void findById() {
-        Member member = memberRepository.findByName("test1")
-                .orElseThrow(() -> new NoSuchElementException("test1 not found"));
-        assertEquals("test1", member.getName());
+    public void findByEmail() {
+        Member member = memberRepository.findByEmail("test@example.com")
+                .orElseThrow(() -> new NoSuchElementException("member not found"));
+        assertEquals("testUser", member.getNickname());
     }
 
     @Test
     public void save() {
         Member newMember = new Member();
-        newMember.setName("test2");
+        newMember.setEmail("test2@example");
+        newMember.setNickname("newNickname");
         memberRepository.save(newMember);
 
-        Member testMember = memberRepository.findByName(newMember.getName())
+        Member testMember = memberRepository.findByEmail(newMember.getEmail())
                 .orElseThrow(() -> new NoSuchElementException("test2 not found"));
-        assertEquals("test2", testMember.getName());
+        assertEquals("newNickname", testMember.getNickname());
     }
 }
