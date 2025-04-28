@@ -1,5 +1,6 @@
-package com.core.carryOn.member.domain;
+package com.core.carryOn.Coords.domain;
 
+import com.core.carryOn.Location.domain.Location;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;

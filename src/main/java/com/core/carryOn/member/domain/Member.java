@@ -1,5 +1,6 @@
 package com.core.carryOn.member.domain;
 
+import com.core.carryOn.Location.domain.Location;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.*;
@@ -23,7 +24,7 @@ public class Member {
     @Field("provider")
     private String provider;
 
-    @Field("Provider_id")
+    @Field("provider_id")
     private String providerId;
 
     @Field("email")
@@ -41,9 +42,6 @@ public class Member {
     @Field("last_login_at")
     private LocalDateTime lastLoginAt;
 
-    @OneToMany(mappedBy = "searched_location_src")
-    private List <Location> searchedLocationsSrc;
-
-    @OneToMany(mappedBy = "searched_location_dest")
-    private List <Location> searchedLocationsDest;
+    @OneToMany(mappedBy = "recently_searched")
+    private List <Location> recentlySearched;
 }

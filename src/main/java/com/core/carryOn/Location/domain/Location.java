@@ -1,30 +1,30 @@
-package com.core.carryOn.member.domain;
+package com.core.carryOn.Location.domain;
 
+import com.core.carryOn.member.domain.Member;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-
-import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Document(collection = "searched_location_dest")
-public class SearchedLocationDest {
+@Document(collection = "location")
+public class Location {
+
     @Id
-    @Field(name = "_id")
+    @Field("_id")
     private String id;
 
-    @Field(name = "dest_latitude")
-    private Double destLatitude;
+    @Field(name = "source_address")
+    private String sourceAddress;
 
-    @Field(name = "dest_longitude")
-    private Double destLongitude;
+    @Field(name = "source_searched")
+    private String sourceSearched;
 
     @Field(name = "dest_address")
     private String destAddress;
@@ -32,10 +32,7 @@ public class SearchedLocationDest {
     @Field(name = "dest_searched")
     private String destSearched;
 
-    @Field(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "member")
     private Member member;
 }

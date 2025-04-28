@@ -1,4 +1,4 @@
-package com.core.carryOn.member.domain;
+package com.core.carryOn.Coords.domain;
 
 import lombok.Getter;
 import lombok.Setter;
