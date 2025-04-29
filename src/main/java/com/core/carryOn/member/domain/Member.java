@@ -1,14 +1,12 @@
 package com.core.carryOn.member.domain;
 
-import com.core.carryOn.Location.domain.Location;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import lombok.*;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -28,9 +26,11 @@ public class Member {
     private String providerId;
 
     @Field("email")
+    @Indexed(unique = true)
     private String email;
 
     @Field("nickname")
+    @Indexed(unique = true)
     private String nickname;
 
     @Field("password")
@@ -42,6 +42,6 @@ public class Member {
     @Field("last_login_at")
     private LocalDateTime lastLoginAt;
 
-    @OneToMany(mappedBy = "recently_searched")
-    private List <Location> recentlySearched;
+    @Field("authority")
+    private String authority;
 }

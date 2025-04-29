@@ -23,6 +23,6 @@ public class TodayRainPercentage {
     private Double percentage;
 
     @OneToOne
-    @JoinColumn(name = "member")
+    @JoinColumn(name = "member_id")
     private Member member;
 }

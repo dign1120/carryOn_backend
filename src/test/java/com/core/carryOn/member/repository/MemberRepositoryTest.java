@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.context.annotation.Import;
 
 import java.util.NoSuchElementException;
+import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,6 +16,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @Import(MongoDBConfig.class)
 class MemberRepositoryTest {
     private final MemberRepository memberRepository;
+
+    Logger logger = Logger.getLogger(MemberRepositoryTest.class.getName());
 
     @Autowired
     public MemberRepositoryTest(MemberRepository memberRepository) {
@@ -25,6 +28,8 @@ class MemberRepositoryTest {
     public void findByEmail() {
         Member member = memberRepository.findByEmail("test@example.com")
                 .orElseThrow(() -> new NoSuchElementException("member not found"));
+
+        logger.info(member.toString());
         assertEquals("testUser", member.getNickname());
     }
 

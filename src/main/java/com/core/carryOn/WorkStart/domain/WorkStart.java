@@ -25,6 +25,6 @@ public class WorkStart {
     private Date startTime;
 
     @OneToOne
-    @JoinColumn(name = "member")
+    @JoinColumn(name = "member_id")
     private Member member;
 }

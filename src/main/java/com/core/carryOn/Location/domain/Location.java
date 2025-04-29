@@ -32,7 +32,6 @@ public class Location {
     @Field(name = "dest_searched")
     private String destSearched;
 
-    @OneToOne
-    @JoinColumn(name = "member")
-    private Member member;
+    @Field(name = "member_id")
+    private String memberId;
 }

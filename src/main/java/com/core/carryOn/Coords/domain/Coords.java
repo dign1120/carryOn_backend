@@ -37,7 +37,6 @@ public class Coords {
     @Field(name = "total_path_coords")
     private List<Coordinate> totalPathCoords;
 
-    @OneToOne
-    @JoinColumn(name = "location")
-    private Location location;
+    @Field(name = "location_id")
+    private String locationId;
 }
