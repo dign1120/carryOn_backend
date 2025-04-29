@@ -1,10 +1,8 @@
 package com.core.carryOn.Location.domain;
 
-import com.core.carryOn.member.domain.Member;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import lombok.*;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -17,8 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class Location {
 
     @Id
-    @Field("_id")
-    private String id;
+    private ObjectId id;
 
     @Field(name = "source_address")
     private String sourceAddress;

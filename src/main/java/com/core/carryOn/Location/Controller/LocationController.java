@@ -5,13 +5,14 @@ import com.core.carryOn.Location.domain.Location;
 import com.core.carryOn.member.domain.Member;
 import com.core.carryOn.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/location")
+@RequestMapping("/api")
 public class LocationController {
     MemberService memberService;
     LocationService locationService;
@@ -23,17 +24,18 @@ public class LocationController {
     }
 
     @GetMapping("/my-location")
-    public Location getMyLocation(String email) {
-        Member member = memberService.findOneByEmail(email)
-                .orElseThrow(() -> new NoSuchElementException("해당 이메일로 시작하는 멤버가 없습니다."));
-
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    public Location getMyLocation() {
+        Member member = memberService.getMyMemberWithAuthority().orElseThrow(NoSuchElementException::new);
         return locationService.findByMemberId(member.getId())
                 .orElseThrow(() -> new NoSuchElementException("해당 멤버의 위치정보가 없습니다."));
     }
 
     @PostMapping("/setting-location")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public void updateMyLocation(@RequestBody Location location) {
-        Optional<Location> optionalLocation = locationService.findByMemberId(location.getId());
+        Member member = memberService.getMyMemberWithAuthority().orElseThrow(NoSuchElementException::new);
+        Optional<Location> optionalLocation = locationService.findByMemberId(member.getId());
 
         if (optionalLocation.isPresent()) {
             Location existMyLocation = optionalLocation.get();
@@ -41,6 +43,7 @@ public class LocationController {
             existMyLocation.setDestSearched(location.getDestSearched());
             existMyLocation.setSourceAddress(location.getSourceAddress());
             existMyLocation.setSourceSearched(location.getSourceSearched());
+            existMyLocation.setMemberId(member.getId());
             locationService.save(existMyLocation);
         } else{
             Location newLocation = new Location();
@@ -48,7 +51,7 @@ public class LocationController {
             newLocation.setDestSearched(location.getDestSearched());
             newLocation.setSourceAddress(location.getSourceAddress());
             newLocation.setSourceSearched(location.getSourceSearched());
-            newLocation.setMemberId(location.getMemberId());
+            newLocation.setMemberId(member.getId());
             locationService.save(newLocation);
         }
     }
