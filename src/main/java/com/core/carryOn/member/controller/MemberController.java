@@ -14,14 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api")
 public class MemberController {
     private final MemberService memberService;
-
-    @Autowired
-    public MemberController(MemberService memberService) {
-        this.memberService = memberService;
-    }
 
     @PostMapping("/join")
     public ResponseEntity<Member> join(@Valid  @RequestBody RegisterFormDto member) {
@@ -38,7 +34,7 @@ public class MemberController {
         return ResponseEntity.ok(newMember);
     }
 
-    @PostMapping("/user")
+    @GetMapping("/user")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<Member> getMyUserInfo() {
         return ResponseEntity.ok(memberService.getMyMemberWithAuthority().get());
