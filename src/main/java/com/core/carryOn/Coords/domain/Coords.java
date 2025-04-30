@@ -5,6 +5,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import lombok.*;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -19,8 +20,7 @@ import java.util.List;
 public class Coords {
 
     @Id
-    @Field(name = "_id")
-    private String id;
+    private ObjectId id;
 
     @Field(name = "source_latitude")
     private Double sourceLatitude;

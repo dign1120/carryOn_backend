@@ -19,4 +19,8 @@ public class CoordsService {
     public Optional<Coords> findByLocationId(String locationId) {
         return coordsRepository.findByLocationId(locationId);
     }
+
+    public Coords save(Coords coords) {
+        return coordsRepository.save(coords);
+    }
 }

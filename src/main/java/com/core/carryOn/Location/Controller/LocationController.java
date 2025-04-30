@@ -5,6 +5,7 @@ import com.core.carryOn.Location.domain.Location;
 import com.core.carryOn.member.domain.Member;
 import com.core.carryOn.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +34,7 @@ public class LocationController {
 
     @PostMapping("/setting-location")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public void updateMyLocation(@RequestBody Location location) {
+    public ResponseEntity<Location> updateMyLocation(@RequestBody Location location) {
         Member member = memberService.getMyMemberWithAuthority().orElseThrow(NoSuchElementException::new);
         Optional<Location> optionalLocation = locationService.findByMemberId(member.getId());
 
@@ -54,5 +55,7 @@ public class LocationController {
             newLocation.setMemberId(member.getId());
             locationService.save(newLocation);
         }
+
+        return ResponseEntity.ok(location);
     }
 }
