@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 @Document(collection = "recently_searched")
 public class RecentlySearched {
     @Id
-    @Field(name = "_id")
     private String id;
 
     @Field(name = "latitude")
@@ -34,7 +33,6 @@ public class RecentlySearched {
     @Field(name = "created_at")
     private LocalDateTime createdAt;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @Field(name = "member_id")
+    private String memberId;
 }
