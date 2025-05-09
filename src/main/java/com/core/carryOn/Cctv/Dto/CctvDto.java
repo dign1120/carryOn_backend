@@ -32,4 +32,10 @@ public class CctvDto {
 
     @JsonProperty("STRMID")
     private String strmId;
+
+    @JsonProperty("CCTVIP")
+    private String cctvIp;
+
+    @JsonProperty("CH")
+    private String ch;
 }
