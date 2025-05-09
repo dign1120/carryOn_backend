@@ -3,8 +3,10 @@ package com.core.carryOn.WorkStart.Service;
 import com.core.carryOn.WorkStart.Repository.WorkstartRepository;
 import com.core.carryOn.WorkStart.domain.WorkStart;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.jdbc.Work;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,5 +20,9 @@ public class WorkStartService {
 
     public WorkStart save(WorkStart workstart) {
         return workstartRepository.save(workstart);
+    }
+
+    public List<WorkStart> findAll() {
+        return workstartRepository.findAll();
     }
 }
