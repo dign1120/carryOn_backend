@@ -37,4 +37,8 @@ public class MemberService {
         return SecurityUtil.getCurrentUsername()
                 .flatMap(memberRepository:: findOneWithAuthorityByEmail);
     }
+
+    public Optional<Member> findOneByNickname(String nickname) {
+        return memberRepository.findByNickname(nickname);
+    }
 }

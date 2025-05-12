@@ -12,6 +12,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -38,6 +40,22 @@ public class MemberController {
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<Member> getMyUserInfo() {
         return ResponseEntity.ok(memberService.getMyMemberWithAuthority().get());
+    }
+
+    @PostMapping("/exist-email")
+    public ResponseEntity<Map<String, Object>> existEmail(@RequestParam("email") String email) {
+        boolean exists = memberService.findOneByEmail(email).isPresent();
+        Map<String, Object> response = new HashMap<>();
+        response.put("exists", exists);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/exist-nickname")
+    public ResponseEntity<Map<String, Object>> existNickname(@RequestParam("nickname") String nickname) {
+        boolean exists = memberService.findOneByNickname(nickname).isPresent();
+        Map<String, Object> response = new HashMap<>();
+        response.put("exists", exists);
+        return ResponseEntity.ok(response);
     }
 
 }

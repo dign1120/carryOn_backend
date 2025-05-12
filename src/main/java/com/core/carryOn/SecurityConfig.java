@@ -40,6 +40,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/authenticate").permitAll()
                         .requestMatchers("/api/join").permitAll()
+                        .requestMatchers("/api/exist-email").permitAll()
+                        .requestMatchers("/api/exist-nickname").permitAll()
                         .anyRequest().authenticated()
                 )
                 .apply(new JwtSecurityConfig(tokenProvider));
